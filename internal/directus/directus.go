@@ -15,10 +15,10 @@ func NewDirectus(url, token string) (*Directus, error) {
 		Url:   url,
 		token: token,
 	}
-	err := d.TestConnection()
-	if err != nil {
-		return nil, err
-	}
+	// err := d.TestConnection()
+	// if err != nil {
+	// 	return nil, err
+	// }
 	return d, nil
 }
 
