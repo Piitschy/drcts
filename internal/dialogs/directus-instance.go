@@ -57,7 +57,17 @@ func DirectusInstance(cCtx *cli.Context, prefix string) (*directus.Directus, err
 		token = result
 	}
 
-	return directus.NewDirectus(url, token)
+	d, err := directus.NewDirectus(url, token)
+	if err != nil {
+		fmt.Printf("Failed to create Directus instance %v\n", err)
+		return nil, err
+	}
+	err = d.TestConnection()
+	if err != nil {
+		fmt.Printf("Connection failed %v\n", err)
+		return nil, err
+	}
+	return d, nil
 }
 
 func validateURL(input string) error {
