@@ -21,7 +21,29 @@ func (s *Snapshot) Marshal() ([]byte, error) {
 }
 
 func (d Directus) GetSnapshot() (*Snapshot, error) {
-	url := fmt.Sprintf("%s/schema/snapshot?export=json&access_token=%s", d.Url, d.token)
+	bodyBytes, err := d.GetRawSnapshot("json")
+
+	if err != nil {
+		return nil, err
+	}
+
+	// fmt.Println("string([]byte)", string(bodyBytes))
+
+	var s Snapshot
+	err = json.Unmarshal(bodyBytes, &s)
+	// fmt.Println("s", s)
+	if err != nil {
+		return nil, err
+	}
+
+	return &s, nil
+}
+
+func (d Directus) GetRawSnapshot(format string) ([]byte, error) {
+	if format != "json" && format != "yaml" && format != "xml" && format != "csv" {
+		return nil, fmt.Errorf("Invalid format %s. Use json, yaml, xml or csv", format)
+	}
+	url := fmt.Sprintf("%s/schema/snapshot?export=%s&access_token=%s", d.Url, format, d.token)
 	res, err := http.Get(url)
 
 	if err != nil {
@@ -43,15 +65,5 @@ func (d Directus) GetSnapshot() (*Snapshot, error) {
 		return nil, err
 	}
 
-	// fmt.Println("string([]byte)", string(bodyBytes))
-
-	var s Snapshot
-	err = json.Unmarshal(bodyBytes, &s)
-	// fmt.Println("s", s)
-	if err != nil {
-		return nil, err
-	}
-
-	return &s, nil
-
+	return bodyBytes, nil
 }
