@@ -10,6 +10,11 @@ import (
 	"github.com/testcontainers/testcontainers-go/wait"
 )
 
+const (
+	adminEmail    = "ad@min.de"
+	adminPassword = "admin"
+)
+
 func NewDirectusContainer(t *testing.T, version string) (context.Context, testcontainers.Container, *directus.Directus) {
 	if version == "" {
 		version = "latest"
@@ -20,6 +25,10 @@ func NewDirectusContainer(t *testing.T, version string) (context.Context, testco
 			Image:        "directus/directus:latest",
 			ExposedPorts: []string{"8055/tcp"},
 			WaitingFor:   wait.ForLog("Server started at http://0.0.0.0:8055"),
+			Env: map[string]string{
+				"ADMIN_EMAIL":    adminEmail,
+				"ADMIN_PASSWORD": adminPassword,
+			},
 		},
 		Started: true,
 	})
