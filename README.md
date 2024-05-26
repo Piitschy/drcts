@@ -6,6 +6,10 @@
 ```bash
 go install github.com/Piitschy/drctsdm@latest
 ```
+or 
+```bash 
+go install github.com/Piitschy/drctsdm@0.1.0
+```
 
 ## Usage
 
