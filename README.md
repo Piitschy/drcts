@@ -1,4 +1,4 @@
-# Directus Data Model CLIl 
+# Directus Data Model CLI
  Directus Data Model CLI (drctsdm) to migrate schemas from one instance to an other.
 
 ## Installation
