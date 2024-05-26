@@ -32,3 +32,7 @@ func (d Directus) TestConnection() error {
 	}
 	return nil
 }
+
+func (d *Directus) SetToken(token string) {
+	d.token = token
+}
