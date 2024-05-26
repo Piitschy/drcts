@@ -29,10 +29,18 @@ func (d Directus) GetDiff(s *Snapshot, force bool) (*Diff, error) {
 		return nil, err
 	}
 
+	if bodyBytes == nil {
+		return nil, nil
+	}
+
 	var diff Diff
 	err = json.Unmarshal(bodyBytes, &diff)
 	if err != nil {
 		return nil, err
+	}
+
+	if len(diff.Diff.Collections) == 0 && len(diff.Diff.Fields) == 0 && len(diff.Diff.Relations) == 0 {
+		return nil, nil
 	}
 
 	return &diff, nil
