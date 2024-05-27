@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/Piitschy/drctsdm/internal/directus"
 	"github.com/testcontainers/testcontainers-go"
@@ -53,6 +54,7 @@ func NewDirectusContainer(t *testing.T, version string) (context.Context, testco
 		container.Terminate(ctx)
 		t.Fatalf("Failed to test connection: %s", err)
 	}
+	time.Sleep(3 * time.Second)
 	return ctx, container, d
 }
 
