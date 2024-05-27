@@ -44,7 +44,7 @@ func NewDirectusContainer(t *testing.T, version string) (context.Context, testco
 		container.Terminate(ctx)
 		t.Fatalf("Failed to get mapped port or url: %s", err)
 	}
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
 	d, err := directus.NewDirectus(fmt.Sprintf("http://%s:%s", url, hostPort.Port()), "")
 	if err != nil {
 		container.Terminate(ctx)
