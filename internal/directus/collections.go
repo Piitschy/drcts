@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -17,14 +18,18 @@ func (r *Collection) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type Collection struct {
-	Collection string           `json:"collection"`
-	Meta       CollectionMeta   `json:"meta"`
-	Schema     CollectionSchema `json:"schema"`
-	Fields     []Field          `json:"fields,omitempty"`
+type CollectionResponse struct {
+	Data Collection `json:"data"`
 }
 
-type Field struct {
+type Collection struct {
+	Collection string            `json:"collection"`
+	Meta       CollectionMeta    `json:"meta"`
+	Schema     CollectionSchema  `json:"schema"`
+	Fields     []CollectionField `json:"fields,omitempty"`
+}
+
+type CollectionField struct {
 	Field  string      `json:"field"`
 	Type   string      `json:"type"`
 	Meta   FieldMeta   `json:"meta"`
@@ -76,7 +81,7 @@ type CollectionSchema struct {
 	SQL     *string     `json:"sql,omitempty"`
 }
 
-func (d Directus) CreateCollection(c *Collection) error {
+func (d *Directus) CreateCollection(c *Collection) error {
 	bodyBytes, err := c.Marshal()
 	if err != nil {
 		return err
@@ -98,7 +103,7 @@ func (d Directus) CreateCollection(c *Collection) error {
 	return nil
 }
 
-func (d Directus) GetCollection(collection string) (*Collection, error) {
+func (d *Directus) GetCollection(collection string) (*Collection, error) {
 	url := fmt.Sprintf("%s/collections/%s?access_token=%s", d.Url, collection, d.token)
 	res, err := http.Get(url)
 	if err != nil {
@@ -109,11 +114,16 @@ func (d Directus) GetCollection(collection string) (*Collection, error) {
 		return nil, fmt.Errorf("Failed to get collection: %s", res.Status)
 	}
 
-	var c Collection
-	err = json.NewDecoder(res.Body).Decode(&c)
+	defer res.Body.Close()
+	bodyBytes, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	return &c, nil
+	var cr CollectionResponse
+	err = json.Unmarshal(bodyBytes, &cr)
+	if err != nil {
+		return nil, err
+	}
+	return &cr.Data, nil
 }

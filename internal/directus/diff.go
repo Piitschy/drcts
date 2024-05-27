@@ -23,7 +23,7 @@ func (d *Diff) Marshal() ([]byte, error) {
 	return json.Marshal(d)
 }
 
-func (d Directus) GetDiff(s *Snapshot, force bool) (*Diff, error) {
+func (d *Directus) GetDiff(s *Snapshot, force bool) (*Diff, error) {
 	bodyBytes, err := d.GetRawDiff(s, "json", force)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (d Directus) GetDiff(s *Snapshot, force bool) (*Diff, error) {
 	return &diff, nil
 }
 
-func (d Directus) GetRawDiff(s *Snapshot, format string, force bool) ([]byte, error) {
+func (d *Directus) GetRawDiff(s *Snapshot, format string, force bool) ([]byte, error) {
 	if format != "json" && format != "yaml" && format != "xml" && format != "csv" {
 		return nil, fmt.Errorf("Invalid format %s. Use json, yaml, xml or csv", format)
 	}
@@ -82,7 +82,7 @@ func (d Directus) GetRawDiff(s *Snapshot, format string, force bool) ([]byte, er
 	return bodyBytes, nil
 }
 
-func (d Directus) ApplyDiff(diff *Diff) error {
+func (d *Directus) ApplyDiff(diff *Diff) error {
 	url := fmt.Sprintf("%s/schema/apply?access_token=%s", d.Url, d.token)
 	b, err := json.Marshal(diff)
 	if err != nil {

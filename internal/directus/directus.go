@@ -22,7 +22,7 @@ func NewDirectus(url, token string) (*Directus, error) {
 	return d, nil
 }
 
-func (d Directus) TestConnection() error {
+func (d *Directus) TestConnection() error {
 	res, err := http.Get(d.Url)
 	if err != nil {
 		return err
