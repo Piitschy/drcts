@@ -1,9 +1,11 @@
 # Directus Data Model CLI
  Directus Data Model CLI (drctsdm) to migrate schemas from one instance to an other.
+
+
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drctsdm)
 ![GitHub Release](https://img.shields.io/github/v/release/Piitschy/drctsdm)
-![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drctsdm/main)
 ![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drctsdm)
+![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drctsdm/main)
 
 ## Installation
 
