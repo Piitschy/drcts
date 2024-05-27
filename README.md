@@ -49,7 +49,7 @@ To compare the schema of two Directus instances, run:
 ```bash
 drctsdm --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> save-diff -o <diff-output-file>
 ```
-
+or
 ```bash
 drctsdm  --tu <target-url> --tt <target-token> save-diff -i <base-schema-file> -o <diff-output-file>
 ```
