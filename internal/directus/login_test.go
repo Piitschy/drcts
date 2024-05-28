@@ -2,13 +2,15 @@ package directus_test
 
 import (
 	"testing"
+
+	h "github.com/Piitschy/drcts/test/testhelpers"
 )
 
 func TestGetToken(t *testing.T) {
-	ctx, container, d := NewDirectusContainer(t, "latest")
+	ctx, container, d := h.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
-	auth, err := d.GetAuth(adminEmail, adminPassword)
+	auth, err := d.GetAuth(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to get token: %s", err)
 	}
@@ -18,7 +20,7 @@ func TestGetToken(t *testing.T) {
 }
 
 func TestGetTokenInvalid(t *testing.T) {
-	ctx, container, d := NewDirectusContainer(t, "latest")
+	ctx, container, d := h.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
 	_, err := d.GetAuth("invalid", "invalid")

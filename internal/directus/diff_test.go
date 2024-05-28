@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Piitschy/drctsdm/internal/directus"
+	h "github.com/Piitschy/drcts/test/testhelpers"
 )
 
 func TestGetDiffNoDifference(t *testing.T) {
-	ctx, container, d := NewDirectusContainer(t, "latest")
+	ctx, container, d := h.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
-	err := d.Login(adminEmail, adminPassword)
+	err := d.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
@@ -32,14 +32,15 @@ func TestGetDiffNoDifference(t *testing.T) {
 }
 
 func TestGetDiffWithDifference(t *testing.T) {
-	baseCtx, baseContainer, baseDirectus := NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest",
+		h.LoadTestCollection(t, "article.json"))
 	defer baseContainer.Terminate(baseCtx)
 
-	targetCtx, targetContainer, targetDirectus := NewDirectusContainer(t, "latest")
+	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
 	defer targetContainer.Terminate(targetCtx)
 
-	err := baseDirectus.Login(adminEmail, adminPassword)
-	err = targetDirectus.Login(adminEmail, adminPassword)
+	err := baseDirectus.Login(h.AdminEmail, h.AdminPassword)
+	err = targetDirectus.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
@@ -60,16 +61,24 @@ func TestGetDiffWithDifference(t *testing.T) {
 }
 
 func TestApplyDiff(t *testing.T) {
-	baseCtx, baseContainer, baseDirectus := NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	field := h.LoadTestField(t, "id_field.json")
+	fmt.Println("field:", field)
+	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest",
+		h.LoadTestCollection(t, "article.json"))
 	defer baseContainer.Terminate(baseCtx)
 
-	targetCtx, targetContainer, targetDirectus := NewDirectusContainer(t, "latest")
+	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
 	defer targetContainer.Terminate(targetCtx)
 
-	err := baseDirectus.Login(adminEmail, adminPassword)
-	err = targetDirectus.Login(adminEmail, adminPassword)
+	err := baseDirectus.Login(h.AdminEmail, h.AdminPassword)
+	err = targetDirectus.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
+	}
+
+	_, err = targetDirectus.GetCollection("articles")
+	if err == nil {
+		t.Fatalf("Collection should not exist")
 	}
 
 	s, err := baseDirectus.GetSnapshot()

@@ -1,16 +1,16 @@
 # Directus Data Model CLI
- Directus Data Model CLI (drctsdm) to migrate schemas from one instance to an other.
+ Directus Data Model CLI (drcts) to migrate schemas from one instance to an other.
 
 
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drctsdm)
-![GitHub Release](https://img.shields.io/github/v/release/Piitschy/drctsdm)
-![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drctsdm)
-![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drctsdm/main)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drcts)
+![GitHub Release](https://img.shields.io/github/v/release/Piitschy/drcts)
+![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drcts)
+![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drcts/main)
 
 ## Installation
 
 ```bash
-go install github.com/Piitschy/drctsdm@latest
+go install github.com/Piitschy/drcts@latest
 ```
 
 ## Usage
@@ -18,16 +18,16 @@ go install github.com/Piitschy/drctsdm@latest
 ### Migrate
 
 ```bash
-drctsdm --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> migrate
+drcts --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> migrate
 ```
- or just run `drctsdm migrate` and follow the instructions.
+ or just run `drcts migrate` and follow the instructions.
 
 ### Export
 
 To export the schema of a Directus instance to a file, run:
 
 ```bash
-drctsdm --bu <base-url> --bt <base-token> save -o <output-file>
+drcts --bu <base-url> --bt <base-token> save -o <output-file>
 ```
 
 Formats supported: `json`, `yaml`, `csv`, `xml`. But only `json` is appliable.
@@ -37,7 +37,7 @@ Formats supported: `json`, `yaml`, `csv`, `xml`. But only `json` is appliable.
 To apply a schema from a file to a Directus instance, run:
 
 ```bash
-drctsdm --tu <target-url> --tt <target-token> apply -i <input-file>
+drcts --tu <target-url> --tt <target-token> apply -i <input-file>
 ```
 
 Its only possible to apply a schema in `json` format.
@@ -47,14 +47,14 @@ Its only possible to apply a schema in `json` format.
 To compare the schema of two Directus instances, run:
 
 ```bash
-drctsdm --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> save-diff -o <diff-output-file>
+drcts --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> save-diff -o <diff-output-file>
 ```
-
+or
 ```bash
-drctsdm  --tu <target-url> --tt <target-token> save-diff -i <base-schema-file> -o <diff-output-file>
+drcts  --tu <target-url> --tt <target-token> save-diff -i <base-schema-file> -o <diff-output-file>
 ```
 
-or just run `drctsdm save-diff` and follow the instructions.
+or just run `drcts save-diff` and follow the instructions.
 
 Formats supported: `json`, `yaml`, `csv`, `xml`. But only `json` is appliable.
 
@@ -63,10 +63,10 @@ Formats supported: `json`, `yaml`, `csv`, `xml`. But only `json` is appliable.
 To apply a schema diff from a file to a Directus instance, run:
 
 ```bash
-drctsdm --tu <target-url> --tt <target-token> apply-diff -i <diff-file>
+drcts --tu <target-url> --tt <target-token> apply-diff -i <diff-file>
 ```
 
-or just run `drctsdm apply-diff` and follow the instructions.
+or just run `drcts apply-diff` and follow the instructions.
 
 Its only possible to apply a schema diff in `json` format.
 
@@ -74,12 +74,12 @@ Its only possible to apply a schema diff in `json` format.
 
 You can also use environment variables to set the Directus instance URL and token:
 
-- `DRCTSDM_BASE_URL`
-- `DRCTSDM_BASE_TOKEN`
-- `DRCTSDM_TARGET_URL`
-- `DRCTSDM_TARGET_TOKEN`
+- `DRCTS_BASE_URL`
+- `DRCTS_BASE_TOKEN`
+- `DRCTS_TARGET_URL`
+- `DRCTS_TARGET_TOKEN`
 
 
-- `DRCTSDM_SCHEMA_FILE` (for `save` and `apply`)
-- `DRCTSDM_DIFF_FILE` (for `save-diff` and `apply-diff`)
+- `DRCTS_SCHEMA_FILE` (for `save` and `apply`)
+- `DRCTS_DIFF_FILE` (for `save-diff` and `apply-diff`)
 
