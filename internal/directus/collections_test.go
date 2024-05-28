@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Piitschy/drctsdm/internal/directus"
+	"github.com/Piitschy/drcts/internal/directus"
 	"github.com/testcontainers/testcontainers-go"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Piitschy/drctsdm/internal/directus"
+	"github.com/Piitschy/drcts/internal/directus"
 )
 
 func TestGetDiffNoDifference(t *testing.T) {

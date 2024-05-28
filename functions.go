@@ -6,8 +6,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/Piitschy/drctsdm/internal/dialogs"
-	"github.com/Piitschy/drctsdm/internal/directus"
+	"github.com/Piitschy/drcts/internal/dialogs"
+	"github.com/Piitschy/drcts/internal/directus"
 	"github.com/urfave/cli/v2"
 )
 

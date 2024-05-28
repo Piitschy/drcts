@@ -9,32 +9,32 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "drctsdm",
-		Usage: "Directus Data Model CLI for schema migration\nBasic usage: drctsdm --base-url <base-url> --base-token <base-token> --target-url <target-url> --target-token <target-token> migrate",
+		Name:  "drcts",
+		Usage: "Directus Data Model CLI for schema migration\nBasic usage: drcts --base-url <base-url> --base-token <base-token> --target-url <target-url> --target-token <target-token> migrate",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "base-url",
 				Aliases: []string{"bu"},
 				Usage:   "URL of the base Directus instance",
-				EnvVars: []string{"DRCTSDM_BASE_URL"},
+				EnvVars: []string{"DRCTS_BASE_URL"},
 			},
 			&cli.StringFlag{
 				Name:    "base-token",
 				Aliases: []string{"bt"},
 				Usage:   "Token of the base Directus instance",
-				EnvVars: []string{"DRCTSDM_BASE_TOKEN"},
+				EnvVars: []string{"DRCTS_BASE_TOKEN"},
 			},
 			&cli.StringFlag{
 				Name:    "target-url",
 				Aliases: []string{"tu"},
 				Usage:   "URL of the target Directus instance",
-				EnvVars: []string{"DRCTSDM_TARGET_URL"},
+				EnvVars: []string{"DRCTS_TARGET_URL"},
 			},
 			&cli.StringFlag{
 				Name:    "target-token",
 				Aliases: []string{"tt"},
 				Usage:   "Token of the target Directus instance",
-				EnvVars: []string{"DRCTSDM_TARGET_TOKEN"},
+				EnvVars: []string{"DRCTS_TARGET_TOKEN"},
 			},
 		},
 		Commands: []*cli.Command{
@@ -49,7 +49,7 @@ func main() {
 						Aliases:     []string{"f"},
 						DefaultText: "false",
 						Usage:       "Ignore version and db differences between instances",
-						EnvVars:     []string{"DRCTSDM_FORCE"},
+						EnvVars:     []string{"DRCTS_FORCE"},
 					},
 					&cli.BoolFlag{
 						Name:        "verbose",
@@ -75,7 +75,7 @@ func main() {
 						Name:      "output",
 						Aliases:   []string{"o"},
 						Usage:     "Output file",
-						EnvVars:   []string{"DRCTSDM_SCHEMA_FILE"},
+						EnvVars:   []string{"DRCTS_SCHEMA_FILE"},
 						TakesFile: true,
 					},
 					&cli.StringFlag{
@@ -101,14 +101,14 @@ func main() {
 						Name:      "input",
 						Aliases:   []string{"i"},
 						Usage:     "Give a schema file to compare with the target instance",
-						EnvVars:   []string{"DRCTSDM_SCHEMA_FILE"},
+						EnvVars:   []string{"DRCTS_SCHEMA_FILE"},
 						TakesFile: true,
 					},
 					&cli.StringFlag{
 						Name:      "output",
 						Aliases:   []string{"o"},
 						Usage:     "Output file",
-						EnvVars:   []string{"DRCTSDM_DIFF_FILE"},
+						EnvVars:   []string{"DRCTS_DIFF_FILE"},
 						TakesFile: true,
 					},
 					&cli.StringFlag{
@@ -121,7 +121,7 @@ func main() {
 						Aliases:     []string{"f"},
 						DefaultText: "false",
 						Usage:       "Ignore version and db differences between instances",
-						EnvVars:     []string{"DRCTSDM_FORCE"},
+						EnvVars:     []string{"DRCTS_FORCE"},
 					},
 					&cli.BoolFlag{
 						Name:        "verbose",
@@ -141,7 +141,7 @@ func main() {
 						Name:      "input",
 						Aliases:   []string{"i"},
 						Usage:     "Input file",
-						EnvVars:   []string{"DRCTSDM_DIFF_FILE"},
+						EnvVars:   []string{"DRCTS_DIFF_FILE"},
 						TakesFile: true,
 					},
 					&cli.BoolFlag{
@@ -168,7 +168,7 @@ func main() {
 						Name:      "input",
 						Aliases:   []string{"i"},
 						Usage:     "Snapshot file as input",
-						EnvVars:   []string{"DRCTSDM_SCHEMA_FILE"},
+						EnvVars:   []string{"DRCTS_SCHEMA_FILE"},
 						TakesFile: true,
 					},
 					&cli.BoolFlag{
@@ -176,7 +176,7 @@ func main() {
 						Aliases:     []string{"f"},
 						DefaultText: "false",
 						Usage:       "Ignore version and db differences between instances",
-						EnvVars:     []string{"DRCTSDM_FORCE"},
+						EnvVars:     []string{"DRCTS_FORCE"},
 					},
 					&cli.BoolFlag{
 						Name:        "verbose",

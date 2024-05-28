@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Piitschy/drctsdm/internal/directus"
+	"github.com/Piitschy/drcts/internal/directus"
 	"github.com/manifoldco/promptui"
 	"github.com/urfave/cli/v2"
 )
