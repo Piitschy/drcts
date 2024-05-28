@@ -4,16 +4,16 @@ import (
 	"testing"
 
 	"github.com/Piitschy/drcts/internal/directus"
-	"github.com/Piitschy/drcts/test/testhelpers"
+	h "github.com/Piitschy/drcts/test/testhelpers"
 )
 
 func TestCreateCollection(t *testing.T) {
-	ctx, container, _ := testhelpers.NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	ctx, container, _ := h.NewDirectusContainerWithCollection(t, "latest", h.LoadTestCollection(t, "article.json"), []*directus.Field{h.LoadTestField(t, "id_field.json")})
 	defer container.Terminate(ctx)
 }
 
 func TestGetCollection(t *testing.T) {
-	ctx, container, d := testhelpers.NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	ctx, container, d := h.NewDirectusContainerWithCollection(t, "latest", h.LoadTestCollection(t, "article.json"), []*directus.Field{h.LoadTestField(t, "id_field.json")})
 	defer container.Terminate(ctx)
 
 	c, err := d.GetCollection("articles")

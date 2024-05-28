@@ -5,14 +5,14 @@ import (
 	"testing"
 
 	"github.com/Piitschy/drcts/internal/directus"
-	"github.com/Piitschy/drcts/test/testhelpers"
+	h "github.com/Piitschy/drcts/test/testhelpers"
 )
 
 func TestGetDiffNoDifference(t *testing.T) {
-	ctx, container, d := testhelpers.NewDirectusContainer(t, "latest")
+	ctx, container, d := h.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
-	err := d.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
+	err := d.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
@@ -33,14 +33,14 @@ func TestGetDiffNoDifference(t *testing.T) {
 }
 
 func TestGetDiffWithDifference(t *testing.T) {
-	baseCtx, baseContainer, baseDirectus := testhelpers.NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest", h.LoadTestCollection(t, "article.json"), []*directus.Field{h.LoadTestField(t, "id_field.json")})
 	defer baseContainer.Terminate(baseCtx)
 
-	targetCtx, targetContainer, targetDirectus := testhelpers.NewDirectusContainer(t, "latest")
+	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
 	defer targetContainer.Terminate(targetCtx)
 
-	err := baseDirectus.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
-	err = targetDirectus.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
+	err := baseDirectus.Login(h.AdminEmail, h.AdminPassword)
+	err = targetDirectus.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
@@ -61,14 +61,19 @@ func TestGetDiffWithDifference(t *testing.T) {
 }
 
 func TestApplyDiff(t *testing.T) {
-	baseCtx, baseContainer, baseDirectus := testhelpers.NewDirectusContainerWithCollection(t, "latest", LoadTestCollection(t, "article.json"), []*directus.Field{LoadTestField(t, "id_field.json")})
+	field := h.LoadTestField(t, "id_field.json")
+	fmt.Println("field:", field)
+	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest",
+		h.LoadTestCollection(t, "article.json"),
+		[]*directus.Field{field},
+	)
 	defer baseContainer.Terminate(baseCtx)
 
-	targetCtx, targetContainer, targetDirectus := testhelpers.NewDirectusContainer(t, "latest")
+	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
 	defer targetContainer.Terminate(targetCtx)
 
-	err := baseDirectus.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
-	err = targetDirectus.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
+	err := baseDirectus.Login(h.AdminEmail, h.AdminPassword)
+	err = targetDirectus.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
