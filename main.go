@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Piitschy/drcts/cmd"
 	"github.com/urfave/cli/v2"
 )
 
@@ -42,7 +43,7 @@ func main() {
 				Name:    "migrate",
 				Aliases: []string{"m"},
 				Usage:   "Migrate schema from base to target instance",
-				Action:  Migrate,
+				Action:  cmd.Migrate,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
 						Name:        "force",
@@ -69,7 +70,7 @@ func main() {
 				Name:    "save-schema",
 				Aliases: []string{"ss", "save"},
 				Usage:   "Save snapshot of the base instance to output file (-o) or stdout",
-				Action:  SaveSchema,
+				Action:  cmd.SaveSchema,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:      "output",
@@ -95,7 +96,7 @@ func main() {
 				Name:    "save-diff",
 				Aliases: []string{"sd", "diff"},
 				Usage:   "Save diff of the base and target instances to output file (-o) or stdout",
-				Action:  SaveDiff,
+				Action:  cmd.SaveDiff,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:      "input",
@@ -135,7 +136,7 @@ func main() {
 				Name:    "apply-diff",
 				Aliases: []string{"ad"},
 				Usage:   "Apply diff to target instance",
-				Action:  ApplyDiff,
+				Action:  cmd.ApplyDiff,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:      "input",
@@ -162,7 +163,7 @@ func main() {
 				Name:    "apply-schema",
 				Aliases: []string{"as", "apply"},
 				Usage:   "Apply snapshot to target instance",
-				Action:  ApplySchema,
+				Action:  cmd.ApplySchema,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:      "input",
