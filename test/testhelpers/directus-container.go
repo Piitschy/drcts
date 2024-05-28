@@ -58,7 +58,7 @@ func NewDirectusContainer(t *testing.T, version string) (context.Context, testco
 	return ctx, container, d
 }
 
-func NewDirectusContainerWithCollection(t *testing.T, version string, collection *directus.Collection, fields []*directus.Field) (context.Context, testcontainers.Container, *directus.Directus) {
+func NewDirectusContainerWithCollection(t *testing.T, version string, collection *directus.Collection) (context.Context, testcontainers.Container, *directus.Directus) {
 	ctx, container, d := NewDirectusContainer(t, version)
 
 	err := d.Login(AdminEmail, AdminPassword)

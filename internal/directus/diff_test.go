@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Piitschy/drcts/internal/directus"
 	h "github.com/Piitschy/drcts/test/testhelpers"
 )
 
@@ -33,7 +32,8 @@ func TestGetDiffNoDifference(t *testing.T) {
 }
 
 func TestGetDiffWithDifference(t *testing.T) {
-	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest", h.LoadTestCollection(t, "article.json"), []*directus.Field{h.LoadTestField(t, "id_field.json")})
+	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest",
+		h.LoadTestCollection(t, "article.json"))
 	defer baseContainer.Terminate(baseCtx)
 
 	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
@@ -64,9 +64,7 @@ func TestApplyDiff(t *testing.T) {
 	field := h.LoadTestField(t, "id_field.json")
 	fmt.Println("field:", field)
 	baseCtx, baseContainer, baseDirectus := h.NewDirectusContainerWithCollection(t, "latest",
-		h.LoadTestCollection(t, "article.json"),
-		[]*directus.Field{field},
-	)
+		h.LoadTestCollection(t, "article.json"))
 	defer baseContainer.Terminate(baseCtx)
 
 	targetCtx, targetContainer, targetDirectus := h.NewDirectusContainer(t, "latest")
@@ -76,6 +74,11 @@ func TestApplyDiff(t *testing.T) {
 	err = targetDirectus.Login(h.AdminEmail, h.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
+	}
+
+	_, err = targetDirectus.GetCollection("articles")
+	if err == nil {
+		t.Fatalf("Collection should not exist")
 	}
 
 	s, err := baseDirectus.GetSnapshot()
