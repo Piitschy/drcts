@@ -1,64 +1,52 @@
 package directus_test
 
 import (
-	"context"
-	"fmt"
+	"io"
+	"os"
+	"path/filepath"
 	"testing"
-	"time"
 
 	"github.com/Piitschy/drcts/internal/directus"
-	"github.com/testcontainers/testcontainers-go"
-	"github.com/testcontainers/testcontainers-go/wait"
+	"github.com/Piitschy/drcts/test/testhelpers"
 )
 
-const (
-	adminEmail    = "ad@min.de"
-	adminPassword = "admin"
-)
+func LoadTestCollection(t *testing.T, name string) *directus.Collection {
+	f, err := os.Open(filepath.Join("..", "..", "test", "testdata", name))
+	if err != nil {
+		t.Fatalf("Failed to open file: %s", err)
+	}
+	defer f.Close()
+	bytes, err := io.ReadAll(f)
+	if err != nil {
+		t.Fatalf("Failed to read file: %s", err)
+	}
 
-func NewDirectusContainer(t *testing.T, version string) (context.Context, testcontainers.Container, *directus.Directus) {
-	if version == "" {
-		version = "latest"
+	c, err := directus.UnmarshalCollection(bytes)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal collection: %s", err)
 	}
-	ctx := context.Background()
-	container, err := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
-		ContainerRequest: testcontainers.ContainerRequest{
-			Image:        "directus/directus:latest",
-			ExposedPorts: []string{"8055/tcp"},
-			WaitingFor:   wait.ForLog("Server started at http://0.0.0.0:8055"),
-			Env: map[string]string{
-				"ADMIN_EMAIL":    adminEmail,
-				"ADMIN_PASSWORD": adminPassword,
-			},
-		},
-		Started: true,
-	})
+	return c
+}
 
+func LoadTestField(t *testing.T, name string) *directus.Field {
+	f, err := os.Open(filepath.Join("..", "..", "test", "testdata", name))
 	if err != nil {
-		container.Terminate(ctx)
-		t.Fatalf("Failed to start container: %s", err)
+		t.Fatalf("Failed to open file: %s", err)
 	}
-	url, err := container.Host(ctx)
-	hostPort, err := container.MappedPort(ctx, "8055")
+	defer f.Close()
+	bytes, err := io.ReadAll(f)
 	if err != nil {
-		container.Terminate(ctx)
-		t.Fatalf("Failed to get mapped port or url: %s", err)
+		t.Fatalf("Failed to read file: %s", err)
 	}
-	time.Sleep(1 * time.Second)
-	d, err := directus.NewDirectus(fmt.Sprintf("http://%s:%s", url, hostPort.Port()), "")
+
+	field, err := directus.UnmarshalField(bytes)
 	if err != nil {
-		container.Terminate(ctx)
-		t.Fatalf("Failed to create Directus instance: %s", err)
+		t.Fatalf("Failed to unmarshal field: %s", err)
 	}
-	err = d.TestConnection()
-	if err != nil {
-		container.Terminate(ctx)
-		t.Fatalf("Failed to test connection: %s", err)
-	}
-	return ctx, container, d
+	return field
 }
 
 func TestNewDirectus(t *testing.T) {
-	ctx, container, _ := NewDirectusContainer(t, "latest")
+	ctx, container, _ := testhelpers.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 }

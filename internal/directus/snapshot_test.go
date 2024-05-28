@@ -1,12 +1,16 @@
 package directus_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/Piitschy/drcts/test/testhelpers"
+)
 
 func TestGetSnapshot(t *testing.T) {
-	ctx, container, d := NewDirectusContainer(t, "latest")
+	ctx, container, d := testhelpers.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
-	err := d.Login(adminEmail, adminPassword)
+	err := d.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
@@ -18,10 +22,10 @@ func TestGetSnapshot(t *testing.T) {
 }
 
 func TestGetRawSnapshot(t *testing.T) {
-	ctx, container, d := NewDirectusContainer(t, "latest")
+	ctx, container, d := testhelpers.NewDirectusContainer(t, "latest")
 	defer container.Terminate(ctx)
 
-	err := d.Login(adminEmail, adminPassword)
+	err := d.Login(testhelpers.AdminEmail, testhelpers.AdminPassword)
 	if err != nil {
 		t.Fatalf("Failed to login: %s", err)
 	}
