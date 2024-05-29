@@ -18,6 +18,7 @@ go install github.com/Piitschy/drcts@latest
 ### Authenticate
 
 You can authenticate with the Directus API by providing the URL with a token or by login with a email and password.
+The token is the primary way to authenticate with the Directus API, so if set, the email and password will be ignored.
 
 - `--bu` or `--base-url` - Base URL of the Directus instance.
 - `--bt` or `--base-token` - Base token of the Directus instance.
@@ -31,6 +32,10 @@ Same for the target instance:
 - `--tp` or `--target-password` - Target password of the Directus instance.
 
 In the following examples, we will use the `--bu` and `--bt` flags to authenticate with the Directus API.
+You can also use the `--be` and `--bp` flags to authenticate with the Directus API by providing an email and password.
+
+> You can get the token from the Directus instance by going to the account settings and creating a new token.
+> I recommend creating a new role and account with only the necessary permissions for the migration.
 
 ### Migrate
 
