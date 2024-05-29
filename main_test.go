@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
-	"github.com/Piitschy/drcts/cmd"
 	h "github.com/Piitschy/drcts/test/testhelpers"
-	"github.com/urfave/cli/v2"
 )
 
 func TestMigrate(t *testing.T) {
@@ -26,23 +26,27 @@ func TestMigrate(t *testing.T) {
 		t.Fatalf("Collection should exist in base")
 	}
 
-	baseAuth, err := baseDirectus.GetAuth(h.AdminEmail, h.AdminPassword)
-	targetAuth, err := targetDirectus.GetAuth(h.AdminEmail, h.AdminPassword)
-	if err != nil {
-		t.Fatalf("Failed to get auth: %s", err)
+	args := os.Args[:1]
+	args = append(args, "--base-url", baseDirectus.Url)
+	args = append(args, "--base-email", h.AdminEmail)
+	args = append(args, "--base-password", h.AdminPassword)
+	args = append(args, "--target-url", targetDirectus.Url)
+	args = append(args, "--target-email", h.AdminEmail)
+	args = append(args, "--target-password", h.AdminPassword)
+	args = append(args, "migrate")
+	args = append(args, "-y")
+
+	fmt.Println(args)
+
+	if err := app.Run(args); err != nil {
+		t.Fatalf("Failed to run migration: %s", err)
 	}
 
-	return // TODO: Fix this test
-
-	cCtx := cli.NewContext(app, nil, nil)
-
-	cCtx.Set("base-url", baseDirectus.Url)
-	cCtx.Set("base-token", baseAuth.AccessToken)
-	cCtx.Set("target-url", targetDirectus.Url)
-	cCtx.Set("target-token", targetAuth.AccessToken)
-
-	err = cmd.Migrate(cCtx)
+	if err = targetDirectus.Login(h.AdminEmail, h.AdminPassword); err != nil {
+		t.Fatalf("Failed to login: %s", err)
+	}
+	_, err = targetDirectus.GetCollection("articles")
 	if err != nil {
-		t.Fatalf("Failed to migrate: %s", err)
+		t.Fatalf("Collection should exist in target: %s", err)
 	}
 }
