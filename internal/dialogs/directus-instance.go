@@ -2,6 +2,7 @@ package dialogs
 
 import (
 	"fmt"
+	"net/mail"
 	"strings"
 
 	"github.com/Piitschy/drcts/internal/directus"
@@ -151,6 +152,10 @@ func validateEmail(input string) error {
 
 	if !strings.Contains(input, "@") {
 		return fmt.Errorf("Email must contain an @")
+	}
+	_, err := mail.ParseAddress(input)
+	if err != nil {
+		return fmt.Errorf("Invalid email address")
 	}
 	return nil
 }
