@@ -43,7 +43,30 @@ func DirectusInstance(cCtx *cli.Context, prefix string) (*directus.Directus, err
 	}
 
 	token := cCtx.String(prefix + "-token")
-	if token == "" {
+	email := cCtx.String(prefix + "-email")
+	password := cCtx.String(prefix + "-password")
+	method := ""
+
+	if token != "" {
+		method = "Token"
+	} else if email != "" || password != "" {
+		method = "Email/Password"
+	}
+
+	if email == "" && password == "" && token == "" {
+		methodPrompt := promptui.Select{
+			Label: "Choose authentication method",
+			Items: []string{"Token", "Email/Password"},
+		}
+		var err error
+		_, method, err = methodPrompt.Run()
+		if err != nil {
+			fmt.Printf("Prompt failed %v\n", err)
+			return nil, err
+		}
+	}
+
+	if token == "" && method == "Token" {
 		prompt := promptui.Prompt{
 			Label:    "Token of the " + prefix + " Directus instance",
 			Mask:     '*',
@@ -57,10 +80,44 @@ func DirectusInstance(cCtx *cli.Context, prefix string) (*directus.Directus, err
 		token = result
 	}
 
+	if email == "" && method == "Email/Password" {
+		prompt := promptui.Prompt{
+			Label:    "Email of the " + prefix + " Directus instance",
+			Validate: validateEmail,
+		}
+		result, err := prompt.Run()
+		if err != nil {
+			fmt.Printf("Prompt failed %v\n", err)
+			return nil, err
+		}
+		email = result
+	}
+
+	if password == "" && method == "Email/Password" {
+		prompt := promptui.Prompt{
+			Label:    "Password of the " + prefix + " Directus instance",
+			Mask:     '*',
+			Validate: validatePassword,
+		}
+		result, err := prompt.Run()
+		if err != nil {
+			fmt.Printf("Prompt failed %v\n", err)
+			return nil, err
+		}
+		password = result
+	}
+
 	d, err := directus.NewDirectus(url, token)
 	if err != nil {
 		fmt.Printf("Failed to create Directus instance %v\n", err)
 		return nil, err
+	}
+	if method == "Email/Password" {
+		err = d.Login(email, password)
+		if err != nil {
+			fmt.Printf("Login failed %v\n", err)
+			return nil, err
+		}
 	}
 	err = d.TestConnection()
 	if err != nil {
@@ -83,6 +140,24 @@ func validateURL(input string) error {
 func validateToken(input string) error {
 	if len(input) == 0 {
 		return fmt.Errorf("Token cannot be empty")
+	}
+	return nil
+}
+
+func validateEmail(input string) error {
+	if len(input) == 0 {
+		return fmt.Errorf("Email cannot be empty")
+	}
+
+	if !strings.Contains(input, "@") {
+		return fmt.Errorf("Email must contain an @")
+	}
+	return nil
+}
+
+func validatePassword(input string) error {
+	if len(input) == 0 {
+		return fmt.Errorf("Password cannot be empty")
 	}
 	return nil
 }
