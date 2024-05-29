@@ -15,12 +15,29 @@ go install github.com/Piitschy/drcts@latest
 
 ## Usage
 
+### Authenticate
+
+You can authenticate with the Directus API by providing the URL with a token or by login with a email and password.
+
+- `--bu` or `--base-url` - Base URL of the Directus instance.
+- `--bt` or `--base-token` - Base token of the Directus instance.
+- `--be` or `--base-email` - Base email of the Directus instance.
+- `--bp` or `--base-password` - Base password of the Directus instance.
+
+Same for the target instance:
+- `--tu` or `--target-url` - Target URL of the Directus instance.
+- `--tt` or `--target-token` - Target token of the Directus instance.
+- `--te` or `--target-email` - Target email of the Directus instance.
+- `--tp` or `--target-password` - Target password of the Directus instance.
+
 ### Migrate
 
 ```bash
 drcts --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> migrate
 ```
  or just run `drcts migrate` and follow the instructions.
+
+> Don't forget to set `-y` flag in scripts to skip the confirmation prompt.
 
 ### Export
 
