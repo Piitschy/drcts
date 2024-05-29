@@ -30,6 +30,8 @@ Same for the target instance:
 - `--te` or `--target-email` - Target email of the Directus instance.
 - `--tp` or `--target-password` - Target password of the Directus instance.
 
+In the following examples, we will use the `--bu` and `--bt` flags to authenticate with the Directus API.
+
 ### Migrate
 
 ```bash
