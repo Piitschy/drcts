@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+var DiffErr400 = fmt.Errorf("Failed with status code 400. Maybe the Directus versions does'nt match.")
+
 type Diff struct {
 	Hash string     `json:"hash"`
 	Diff Difference `json:"diff"`
@@ -67,6 +69,10 @@ func (d *Directus) GetRawDiff(s *Snapshot, format string, force bool) ([]byte, e
 
 	if res.StatusCode == 204 {
 		return nil, nil
+	}
+
+	if res.StatusCode == 400 {
+		return nil, DiffErr400
 	}
 
 	if res.StatusCode != 200 {
