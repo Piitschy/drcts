@@ -31,8 +31,7 @@ func DirectusInstance(cCtx *cli.Context, prefix string) (*directus.Directus, err
 				fmt.Printf("Invalid URL %v\n", err)
 				continue
 			}
-			err = d.TestConnection()
-			if err != nil {
+			if err = d.TestConnection(); err != nil {
 				fmt.Printf("Connection failed %v\n", err)
 				continue
 			}
