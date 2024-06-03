@@ -44,6 +44,8 @@ You can also use the `--be` and `--bp` flags to authenticate with the Directus A
 
 > You can get the token from the Directus instance by going to the account settings and creating a new token.
 > I recommend creating a new role and account with only the necessary permissions for the migration.
+>
+> IMPORTANT: Only collections that are readable by the user can be migrated. On the target system, the user must have the appropriate permissions to create collections!
 
 ### Migrate
 
