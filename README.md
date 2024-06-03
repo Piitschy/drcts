@@ -1,11 +1,19 @@
 # Directus Data Model CLI
- Directus Data Model CLI (drcts) to migrate schemas from one instance to an other.
+[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to an other.
 
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drcts)
 ![GitHub Release](https://img.shields.io/github/v/release/Piitschy/drcts)
 ![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drcts)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drcts/main)
+
+
+It is a Go implementation of the [Directus Migration](https://docs.directus.io/guides/migration/node.html) and is planned to be extended with additional features in the future:
+- selective migration
+- creation of custom collection presets
+- data migration
+
+For complete backup and restore functionality, see [Postgres Migration](https://github.com/Piitschy/pgrd).
 
 ## Installation
 
