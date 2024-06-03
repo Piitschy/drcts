@@ -8,7 +8,13 @@
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drcts/main)
 
 
-It is a Go implementation of the [Directus Migration](https://docs.directus.io/guides/migration/node.html) and is planned to be extended with additional features in the future:
+It is a Go implementation of the [Directus Migration](https://docs.directus.io/guides/migration/node.html), allowing you to:
+- migrate schemas from one instance to another
+- save schemas to files
+- restore schemas from files
+- save schema differences
+
+It is planned to be extended with additional features in the future:
 - selective migration
 - creation of custom collection presets
 - data migration
