@@ -20,6 +20,22 @@ func (s *Snapshot) Marshal() ([]byte, error) {
 	return json.Marshal(s)
 }
 
+// FilterCollections filters the snapshot to only include the collections specified in the argument
+// If a collection is not found in the snapshot, it is ignored
+func (s *Snapshot) FilterCollections(c ...string) error {
+	var newCollections []map[string]*json.RawMessage
+	for _, collection := range s.Collections {
+		for _, name := range c {
+			if _, ok := collection[name]; ok {
+				newCollections = append(newCollections, collection)
+				break
+			}
+		}
+	}
+	s.Collections = newCollections
+	return nil
+}
+
 func (d *Directus) GetSnapshot() (*Snapshot, error) {
 	bodyBytes, err := d.GetRawSnapshot("json")
 

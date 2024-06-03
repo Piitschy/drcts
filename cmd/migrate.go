@@ -22,6 +22,9 @@ func Migrate(cCtx *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	for _, collectionName := range cCtx.Args().Slice() {
+		s.FilterCollections(collectionName)
+	}
 	verbose(cCtx, "Getting diff from target instance...")
 	diff, err := dTarget.GetDiff(s, force)
 	if err == directus.DiffErr400 && !force {
