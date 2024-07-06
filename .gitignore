@@ -7,6 +7,10 @@
 *.dll
 *.so
 *.dylib
+*/node_modules/*
+node_modules/*
+node_modules
+package-lock.json
 
 # Test binary, built with `go test -c`
 *.test
@@ -19,3 +23,5 @@
 
 # Go workspace file
 go.work
+
+dist/

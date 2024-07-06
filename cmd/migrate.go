@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Piitschy/drcts/internal/dialogs"
+	"github.com/Piitschy/drcts/internal/directus"
 	"github.com/urfave/cli/v2"
 )
 
@@ -18,8 +19,17 @@ func Migrate(cCtx *cli.Context) error {
 
 	verbose(cCtx, "Getting snapshot from base instance...")
 	s, err := dBase.GetSnapshot()
+	if err != nil {
+		return err
+	}
 	verbose(cCtx, "Getting diff from target instance...")
 	diff, err := dTarget.GetDiff(s, force)
+	if err == directus.DiffErr400 && !force {
+		return fmt.Errorf("%s Try to use --force to ignore this error", err.Error())
+	}
+	if err != nil {
+		return err
+	}
 
 	if diff == nil {
 		verbose(cCtx, "No changes detected")

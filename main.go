@@ -32,6 +32,18 @@ var app = &cli.App{
 			EnvVars: []string{"DRCTS_BASE_TOKEN"},
 		},
 		&cli.StringFlag{
+			Name:    "base-email",
+			Aliases: []string{"be"},
+			Usage:   "(Alternative to token) Email of the base Directus instance",
+			EnvVars: []string{"DRCTS_BASE_EMAIL"},
+		},
+		&cli.StringFlag{
+			Name:    "base-password",
+			Aliases: []string{"bp"},
+			Usage:   "(Alternative to token) Password of the base Directus instance",
+			EnvVars: []string{"DRCTS_BASE_PASSWORD"},
+		},
+		&cli.StringFlag{
 			Name:    "target-url",
 			Aliases: []string{"tu"},
 			Usage:   "URL of the target Directus instance",
@@ -42,6 +54,18 @@ var app = &cli.App{
 			Aliases: []string{"tt"},
 			Usage:   "Token of the target Directus instance",
 			EnvVars: []string{"DRCTS_TARGET_TOKEN"},
+		},
+		&cli.StringFlag{
+			Name:    "target-email",
+			Aliases: []string{"te"},
+			Usage:   "(Alternative to token) Email of the target Directus instance",
+			EnvVars: []string{"DRCTS_TARGET_EMAIL"},
+		},
+		&cli.StringFlag{
+			Name:    "target-password",
+			Aliases: []string{"tp"},
+			Usage:   "(Alternative to token) Password of the target Directus instance",
+			EnvVars: []string{"DRCTS_TARGET_PASSWORD"},
 		},
 	},
 	Commands: []*cli.Command{

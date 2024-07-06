@@ -1,11 +1,25 @@
 # Directus Data Model CLI
- Directus Data Model CLI (drcts) to migrate schemas from one instance to an other.
+[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to an other.
 
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drcts)
 ![GitHub Release](https://img.shields.io/github/v/release/Piitschy/drcts)
 ![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drcts)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drcts/main)
+
+
+It is a Go implementation of the [Directus Migration](https://docs.directus.io/guides/migration/node.html), allowing you to:
+- migrate schemas from one instance to another
+- save schemas to files
+- restore schemas from files
+- save schema differences
+
+It is planned to be extended with additional features in the future:
+- selective migration
+- creation of custom collection presets
+- data migration
+
+For complete backup and restore functionality, see [Postgres Migration](https://github.com/Piitschy/pgrd).
 
 ## Installation
 
@@ -15,12 +29,38 @@ go install github.com/Piitschy/drcts@latest
 
 ## Usage
 
+### Authenticate
+
+You can authenticate with the Directus API by providing the URL with a token or by login with a email and password.
+The token is the primary way to authenticate with the Directus API, so if set, the email and password will be ignored.
+
+- `--bu` or `--base-url` - Base URL of the Directus instance.
+- `--bt` or `--base-token` - Base token of the Directus instance.
+- `--be` or `--base-email` - Base email of the Directus instance.
+- `--bp` or `--base-password` - Base password of the Directus instance.
+
+Same for the target instance:
+- `--tu` or `--target-url` - Target URL of the Directus instance.
+- `--tt` or `--target-token` - Target token of the Directus instance.
+- `--te` or `--target-email` - Target email of the Directus instance.
+- `--tp` or `--target-password` - Target password of the Directus instance.
+
+In the following examples, we will use the `--bu` and `--bt` flags to authenticate with the Directus API.
+You can also use the `--be` and `--bp` flags to authenticate with the Directus API by providing an email and password.
+
+> You can get the token from the Directus instance by going to the account settings and creating a new token.
+> I recommend creating a new role and account with only the necessary permissions for the migration.
+>
+> IMPORTANT: Only collections that are readable by the directus user can be migrated. On the target system, the user must have the appropriate permissions to create collections!
+
 ### Migrate
 
 ```bash
 drcts --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> migrate
 ```
  or just run `drcts migrate` and follow the instructions.
+
+> Don't forget to set `-y` flag in scripts to skip the confirmation prompt.
 
 ### Export
 
