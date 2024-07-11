@@ -28,7 +28,7 @@ If you have Go installed, you can install the CLI by running:
 go install github.com/Piitschy/drcts@latest
 ```
 
-Alternatively, you can download use npm to install the CLI:
+Alternatively, you can use npm to install the CLI:
 ```bash 
 npm install -g drcts
 ```
