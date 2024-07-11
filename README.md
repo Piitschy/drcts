@@ -23,8 +23,14 @@ For complete backup and restore functionality, see [Postgres Migration](https://
 
 ## Installation
 
+If you have Go installed, you can install the CLI by running:
 ```bash
 go install github.com/Piitschy/drcts@latest
+```
+
+Alternatively, you can use npm to install the CLI:
+```bash 
+npm i -g drcts
 ```
 
 ## Usage
