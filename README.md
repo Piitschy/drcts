@@ -30,7 +30,7 @@ go install github.com/Piitschy/drcts@latest
 
 Alternatively, you can use npm to install the CLI:
 ```bash 
-npm install -g drcts
+npm i -g drcts
 ```
 
 ## Usage
