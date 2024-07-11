@@ -1,6 +1,6 @@
 {
   "name": "drcts",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Directus Data Model CLI (drcts) to migrate schemas from one instance to an other.",
   "main": "index.js",
   "scripts": {
@@ -25,13 +25,13 @@
   "bugs": {
     "url": "https://github.com/Piitschy/drcts/issues"
   },
-  "dependencies": {
-    "golang-npm": "^0.0.2"
-  },
   "homepage": "https://github.com/Piitschy/drcts#readme",
   "goBinary": {
     "name": "drcts",
     "path": "./bin",
     "url": "https://github.com/Piitschy/drcts/releases/download/v{{version}}/drcts_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  },
+  "dependencies": {
+    "go-npm": "^0.1.9"
   }
 }
