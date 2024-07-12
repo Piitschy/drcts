@@ -130,5 +130,5 @@ You can also use environment variables to set the Directus instance URL and toke
 - `DRCTS_DIFF_FILE` (for `save-diff` and `apply-diff`)
 
 # Licensing 
-For version 1.0.0+ I will change the license from GPL-3.0 to MIT so that the CLI can also be used in commercial products.
+For version 1.0.0+ I will change the license from GPL-3.0 to MIT to facilitate the use in commercial products.
 Until then, the current GPL-3.0 license applies.
