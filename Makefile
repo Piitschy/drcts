@@ -16,3 +16,9 @@ release:
 	sh ./update-version.sh
 	goreleaser release --clean
 	@echo "Done!"
+
+clean:
+	@echo "Cleaning..."
+	rm -rf dist
+	rm -rf bin
+	@echo "Done!"
