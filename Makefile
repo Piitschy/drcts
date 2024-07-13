@@ -15,6 +15,7 @@ release:
 	@echo "Releasing..."
 	sh ./update-version.sh
 	goreleaser release --clean
+	npm publish
 	@echo "Done!"
 
 clean:
