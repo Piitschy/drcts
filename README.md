@@ -1,5 +1,5 @@
 # Directus Data Model CLI
-[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to an other.
+[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to another.
 
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drcts)
@@ -7,6 +7,19 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/Piitschy/drcts)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/Piitschy/drcts/main)
 
+<!--toc:start-->
+- [Directus Data Model CLI](#directus-data-model-cli)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Authenticate](#authenticate)
+    - [Migrate](#migrate)
+    - [Export](#export)
+    - [Apply](#apply)
+    - [Diff](#diff)
+    - [Apply Diff](#apply-diff)
+  - [Environment Variables](#environment-variables)
+- [Licensing](#licensing)
+<!--toc:end-->
 
 It is a Go implementation of the [Directus Migration](https://docs.directus.io/guides/migration/node.html), allowing you to:
 - migrate schemas from one instance to another
@@ -37,19 +50,19 @@ npm i -g drcts
 
 ### Authenticate
 
-You can authenticate with the Directus API by providing the URL with a token or by login with a email and password.
+You can authenticate with the Directus API by providing the URL with a token or by login with an email and password.
 The token is the primary way to authenticate with the Directus API, so if set, the email and password will be ignored.
 
-- `--bu` or `--base-url` - Base URL of the Directus instance.
-- `--bt` or `--base-token` - Base token of the Directus instance.
-- `--be` or `--base-email` - Base email of the Directus instance.
-- `--bp` or `--base-password` - Base password of the Directus instance.
+- `--bu` or `--base-url` - URL of the base Directus instance.
+- `--bt` or `--base-token` - Token of the base Directus instance.
+- `--be` or `--base-email` - Email of the base Directus instance.
+- `--bp` or `--base-password` - Password of the base Directus instance.
 
 Same for the target instance:
-- `--tu` or `--target-url` - Target URL of the Directus instance.
-- `--tt` or `--target-token` - Target token of the Directus instance.
-- `--te` or `--target-email` - Target email of the Directus instance.
-- `--tp` or `--target-password` - Target password of the Directus instance.
+- `--tu` or `--target-url` - URL of the target Directus instance.
+- `--tt` or `--target-token` - Token of the target Directus instance.
+- `--te` or `--target-email` - Email of the target Directus instance.
+- `--tp` or `--target-password` - Password of the target Directus instance.
 
 In the following examples, we will use the `--bu` and `--bt` flags to authenticate with the Directus API.
 You can also use the `--be` and `--bp` flags to authenticate with the Directus API by providing an email and password.
@@ -64,7 +77,7 @@ You can also use the `--be` and `--bp` flags to authenticate with the Directus A
 ```bash
 drcts --bu <base-url> --bt <base-token> --tu <target-url> --tt <target-token> migrate
 ```
- or just run `drcts migrate` and follow the instructions.
+ Or just run `drcts migrate` and follow the instructions.
 
 > Don't forget to set `-y` flag in scripts to skip the confirmation prompt.
 
@@ -86,7 +99,7 @@ To apply a schema from a file to a Directus instance, run:
 drcts --tu <target-url> --tt <target-token> apply -i <input-file>
 ```
 
-Its only possible to apply a schema in `json` format.
+It's only possible to apply a schema in `json` format.
 
 ### Diff 
 
@@ -100,7 +113,7 @@ or
 drcts  --tu <target-url> --tt <target-token> save-diff -i <base-schema-file> -o <diff-output-file>
 ```
 
-or just run `drcts save-diff` and follow the instructions.
+Or just run `drcts save-diff` and follow the instructions.
 
 Formats supported: `json`, `yaml`, `csv`, `xml`. But only `json` is appliable.
 
@@ -112,9 +125,9 @@ To apply a schema diff from a file to a Directus instance, run:
 drcts --tu <target-url> --tt <target-token> apply-diff -i <diff-file>
 ```
 
-or just run `drcts apply-diff` and follow the instructions.
+Or just run `drcts apply-diff` and follow the instructions.
 
-Its only possible to apply a schema diff in `json` format.
+It's only possible to apply a schema diff in `json` format.
 
 ## Environment Variables
 
@@ -129,3 +142,6 @@ You can also use environment variables to set the Directus instance URL and toke
 - `DRCTS_SCHEMA_FILE` (for `save` and `apply`)
 - `DRCTS_DIFF_FILE` (for `save-diff` and `apply-diff`)
 
+# Licensing 
+For version 1.0.0+ I will change the license from GPL-3.0 to MIT to facilitate the use in commercial products.
+Until then, the current GPL-3.0 license applies.
