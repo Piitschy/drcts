@@ -28,7 +28,17 @@ func Migrate(cCtx *cli.Context) error {
 	verbose(cCtx, "Getting diff from target instance...")
 	diff, err := dTarget.GetDiff(s, force)
 	if err == directus.DiffErr400 && !force {
-		return fmt.Errorf("%s Try to use --force to ignore this error", err.Error())
+		if !cCtx.Bool("yes") {
+			yn, _ := dialogs.YesNo(cCtx, "Version mismatch between base and target instance. Do you want to force the migration anyway?")
+			if !yn {
+				return fmt.Errorf("%s Try to use --force to ignore this", err.Error())
+			}
+		} else {
+			verbose(cCtx, "There seems to be a version mismatch between base and target instance. Trying to force migration...")
+		}
+		force = true
+		verbose(cCtx, "Getting diff from target instance...")
+		diff, err = dTarget.GetDiff(s, force)
 	}
 	if err != nil {
 		return err
