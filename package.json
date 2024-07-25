@@ -1,6 +1,6 @@
 {
   "name": "drcts",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Directus Data Model CLI (drcts) to migrate schemas from one instance to an other.",
   "main": "index.js",
   "scripts": {
