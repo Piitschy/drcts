@@ -32,6 +32,6 @@
     "url": "https://github.com/Piitschy/drcts/releases/download/v{{version}}/drcts_{{version}}_{{platform}}_{{arch}}.tar.gz"
   },
   "dependencies": {
-    "go-npm": "^0.1.9"
+    "golang-npm": "^0.0.5"
   }
 }
