@@ -1,5 +1,5 @@
 # Directus Data Model CLI
-[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to another.
+[Directus](https://directus.io) Data Model CLI (drcts) to migrate schemas from one instance to another without the need for a server component.
 
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Piitschy/drcts)
