@@ -45,6 +45,7 @@ Alternatively, you can use npm to install the CLI:
 ```bash 
 npm i -g drcts
 ```
+> Remember that the npm binary path may still need to be added to the paths of your operating system. This is particularly important under Windows. I therefore recommend using it under WSL.
 
 ## Usage
 
