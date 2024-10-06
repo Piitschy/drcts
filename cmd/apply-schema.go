@@ -35,7 +35,9 @@ func ApplySchema(cCtx *cli.Context) error {
 	if err != nil {
 		return err
 	}
-
+	for _, collectionName := range cCtx.Args().Slice() {
+		s.FilterCollections(collectionName)
+	}
 	diff, err := dTarget.GetDiff(&s, true)
 	if diff == nil {
 		verbose(cCtx, "No changes detected")
