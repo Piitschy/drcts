@@ -39,3 +39,19 @@ func TestGetRawSnapshot(t *testing.T) {
 		t.Fatalf("Snapshot is empty")
 	}
 }
+
+func TextFilterCollections(t *testing.T) {
+	ctx, container, d := h.NewDirectusContainer(t, "latest")
+	defer container.Terminate(ctx)
+
+	err := d.Login(h.AdminEmail, h.AdminPassword)
+	if err != nil {
+		t.Fatalf("Failed to login: %s", err)
+	}
+
+	s, err := d.GetSnapshot()
+	if err != nil {
+		t.Fatalf("Failed to get snapshot: %s", err)
+	}
+	_ = s // TODO: implement filterCollections
+}
